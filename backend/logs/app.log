@@ -1,0 +1,23 @@
+2026-05-18 20:46:32,858 - INFO - Home Endpoint accessed
+2026-05-18 20:47:00,458 - INFO - Home Endpoint accessed
+2026-05-18 20:47:58,237 - INFO - Prediction request received: hello, this is good
+2026-05-18 20:47:58,258 - INFO - Prediction result: 2
+2026-05-18 20:49:07,502 - INFO - Prediction request received: this is good
+2026-05-18 20:49:07,503 - INFO - Prediction result: 2
+2026-05-18 20:54:10,308 - INFO - Prediction request received: this is good thing
+2026-05-18 20:54:10,321 - INFO - Prediction result: 2
+2026-05-18 21:01:01,837 - INFO - Home Endpoint accessed
+2026-05-18 21:01:54,159 - INFO - Prediction request received: i love you
+2026-05-18 21:01:54,161 - INFO - Prediction result: 2
+2026-05-18 21:02:00,100 - INFO - Prediction request received: i love you
+2026-05-18 21:02:00,104 - INFO - Prediction result: 2
+2026-05-18 21:11:35,779 - INFO - Prediction request received: i love you
+2026-05-18 21:11:35,783 - INFO - Prediction result: Neutral
+2026-05-18 21:11:51,785 - INFO - Prediction request received: i love you
+2026-05-18 21:11:51,787 - INFO - Prediction result: Neutral
+2026-05-18 21:13:32,943 - INFO - Prediction request received: i love you
+2026-05-18 21:13:32,958 - INFO - Prediction result: Neutral
+2026-05-18 21:16:20,467 - INFO - Prediction request received: i love you
+2026-05-18 21:16:20,479 - INFO - Prediction result: Neutral
+2026-05-18 21:17:52,486 - INFO - Prediction request received: i love you
+2026-05-18 21:17:52,491 - INFO - Prediction result: Neutral
