@@ -7,3 +7,6 @@ joblib
 pydantic
 slowapi
 lime
+redis
+pytest
+httpx

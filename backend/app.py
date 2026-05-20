@@ -1,7 +1,10 @@
 from fastapi import FastAPI, Request
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import joblib
-from logger import logger
+from .logger import logger
+import redis
+import json
+import os
 
 from slowapi import Limiter
 from slowapi.util import get_remote_address
@@ -10,6 +13,14 @@ from slowapi.middleware import SlowAPIMiddleware
 from fastapi.responses import JSONResponse
 
 from lime.lime_text import LimeTextExplainer
+
+# redis client creation
+redis_client = redis.Redis(
+    host = 'localhost',
+    port = 6379,
+    decode_responses = True
+)
+
 
 # initialize limiter
 limiter = Limiter(
@@ -41,7 +52,14 @@ def rate_limit_handler(request,exc):
 
 
 #loading pipeline
-pipeline = joblib.load("model/sentiment_model.pkl")
+BASE_DIR = os.path.dirname(__file__)
+
+MODEL_PATH = os.path.join(
+    BASE_DIR,
+    "model",
+    "sentiment_model.pkl"
+)
+pipeline = joblib.load(MODEL_PATH)
 
 
 # class names
@@ -52,11 +70,11 @@ explainer = LimeTextExplainer(
 
 # schema
 class CommentInput(BaseModel):
-    comment : str
+    comment : str = Field(..., min_length=1)
 
 # routes
 @app.get("/")
-def home():
+async def home():
     logger.info("Home Endpoint accessed")
     return {
         "message" : "Youtube Comment Sentiment API Running"
@@ -70,11 +88,17 @@ async def predict_sentiment(
     request : Request,
     data : CommentInput
 ):
-    logger.info(
-        f"Prediction request received: {data.comment}"
-    )
+    comment = data.comment
 
-    prediction = int(pipeline.predict([data.comment])[0])
+    # checking redis
+    cached_result = redis_client.get(comment)
+    if cached_result:
+        logger.info("Cache Hit")
+        return json.loads(cached_result)
+    logger.info("Cache Miss")
+
+    # prediction
+    prediction = int(pipeline.predict([comment])[0])
 
     label_map = {
         0 : 'Negative', 
@@ -84,14 +108,19 @@ async def predict_sentiment(
 
     sentiment = label_map[prediction]
 
-    logger.info(
-        f"Prediction result: {sentiment}"
-    )
-
-    return {
+    # result format
+    result =  {
         'Comment': data.comment,
         'Sentiment': sentiment
     }
+    
+    # stores in redis
+    redis_client.setex(
+        comment,
+        3600,
+        json.dumps(result)
+    )
+    return result
 
 
 @app.post("/explain")
