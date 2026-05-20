@@ -3,8 +3,7 @@
 A production-level Machine Learning application that performs sentiment analysis on YouTube comments using FastAPI, Streamlit, Docker, Redis, Explainable AI, and automated testing.
 
 
-
-## Features
+# Features
 
 - Sentiment Prediction
 - Positive / Negative / Neutral Classification
@@ -44,6 +43,7 @@ A production-level Machine Learning application that performs sentiment analysis
 ## Testing
 - Pytest
 - FastAPI TestClient
+
 
 
 # Project Structure
@@ -90,8 +90,8 @@ Youtube_comment_sentiment_Analysis/
 ├── .gitignore
 ├── docker-compose.yml
 ├── README.md
+└── pytest.ini
 ```
-
 
 
 # Model Pipeline
@@ -123,7 +123,7 @@ git clone <repository_url>
 cd Youtube_comment_sentiment_Analysis
 ```
 
----
+
 
 # Create Virtual Environment
 
@@ -145,7 +145,7 @@ myenv\Scripts\activate
 source myenv/bin/activate
 ```
 
----
+
 
 # Install Dependencies
 
@@ -175,8 +175,7 @@ Backend runs on:
 http://127.0.0.1:8000
 ```
 
-
-
+---
 # Run Streamlit Frontend
 
 ```bash
@@ -210,11 +209,10 @@ http://localhost:8501
 ```json
 {
   "comment": "This video is amazing",
-  "sentiment": "Positive"
+  "Sentiment": "Positive"
 }
 ```
 
----
 
 # Explainable AI Endpoint
 
@@ -222,7 +220,7 @@ http://localhost:8501
 
 Provides prediction explanation for user comments.
 
----
+
 
 # Redis Setup
 
@@ -238,7 +236,7 @@ Verify container:
 docker ps
 ```
 
----
+
 
 # Docker Setup
 
@@ -254,7 +252,6 @@ docker build -t sentiment-backend ./backend
 docker build -t sentiment-frontend ./frontend
 ```
 
----
 
 # Docker Compose
 
@@ -264,7 +261,6 @@ Run complete application:
 docker-compose up --build
 ```
 
----
 
 # Run Tests
 
@@ -278,7 +274,7 @@ Expected Result:
 ================ 4 passed =================
 ```
 
----
+
 
 # Rate Limiting
 
@@ -290,7 +286,7 @@ Example:
 @limiter.limit("5/minute")
 ```
 
----
+
 
 # Logging
 
@@ -300,7 +296,6 @@ Application logs are stored in:
 backend/logs/app.log
 ```
 
----
 
 # CI/CD
 
@@ -316,7 +311,6 @@ Workflow File:
 .github/workflows/ci.yml
 ```
 
----
 
 # Future Improvements
 
@@ -329,11 +323,9 @@ Workflow File:
 - Cloud Deployment
 
 
-
 # Author
 
 Sangita Bera
-
 
 
 # License
